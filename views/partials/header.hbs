@@ -1,0 +1,30 @@
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-black border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">Clothes Online</a></h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/categories">Categories</a>
+        <a class="p-2 text-dark" href="/shopping-cart">Cart<i class="fas fa-cart-plus cartid"></i><span class="badge badge-pill badge-info">{{session.cart.totalQty}}</span></a>
+        
+      </nav>
+      {{# if login}}
+      <div class="dropdown">
+      <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user"> </i> {{usermail}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/user/profile">Financial Monitor</a>
+        <a class="dropdown-item" href="/user/settings">User Settings</a>
+        <a class="dropdown-item" href="/user/logout">Logout</a>
+      </div>
+</div>
+      
+      {{else}}
+      <div class="btn-toolbar">
+          <a class="btn btn-outline-primary" href="/user/signin">Login</a>_____
+          <a class="btn btn-success" href="/user/signup">Register</a>
+      </div>
+      {{/if}}
+      
+      
+      
+    </div>

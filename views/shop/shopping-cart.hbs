@@ -1,0 +1,35 @@
+{{# if products}}
+<div class="row">
+ 
+    <ul class="list-group">
+        {{# each products}}
+        <li class="list-group-item">
+            <li>{{this.qty}}</li>
+            <li>{{this.item.title}}</li>
+            <li>Kshs.{{this.price}}</li>
+            <li><a href="/reduce/{{this.item._id}}">Reduce By 1</a></li>
+            <li><a href="/remove/{{this.item._id}}">Remove All</a></li>
+        </li>
+        {{/each}}
+    </ul>
+    
+</div>
+<div class="row">
+   <div class="col-sm-6">
+       <strong>Total:{{totalPrice}}</strong>
+   </div>
+</div>
+<hr>
+<div class="row">
+   <div class="col-sm-6">
+       <a href="/checkout" class="button btn-success">Checkout</a>
+   </div>
+</div>
+{{else}}
+<div class="row">
+   <div class="col-sm-6">
+       <strong>No items in the Cart</strong>
+   </div>
+</div>
+{{/if}}
+

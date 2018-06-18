@@ -1,0 +1,19 @@
+
+    <h2>My Financial Analysis</h2>
+    {{# each orders}}
+    <div class="card">
+  <div class="card-header">
+  </div>
+  {{# each this.items}}
+  <div class="card-body">
+    <h5 class="card-title">{{this.price}}</h5>
+    <p class="card-text">{{this.item.title}}</p>
+    <a href="#" class="btn btn-primary">{{this.qty}}</a>
+    
+  </div>
+  {{/each}}
+  <button class="btn btn-primary">{{this.cart.totalPrice}}</button>
+  <h3>{{this.date}}</h3>
+</div>
+{{/each}}
+

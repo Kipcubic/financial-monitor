@@ -1,0 +1,25 @@
+  <form class="form-signin" method="post" action="/user/signin">
+      <div class="text-center mb-4">
+        
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        {{#if hasErrors}}
+            {{# each messages}}
+                  <p>{{this}}</p>
+            {{/each}}
+        {{/if}}
+
+      <div class="form-label-group">
+       <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus autocomplete="off">  
+      </div>
+      <hr>
+
+      <div class="form-label-group">
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required autocomplete="off">
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <a href="/user/signup">Sign Up</a>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; CIT-227-020/2017</p>
+    </form>
