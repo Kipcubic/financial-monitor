@@ -59,7 +59,7 @@
 	 
 }
 .check{
-  padding:5em 0;
+  padding:1em 0;
   margin-left: 14px;
 }
 .cart-item-info h3{
@@ -118,7 +118,7 @@
   position: relative;  
 }
 a.order {
-  background:#fa7455;
+  background:#53d34c;
   padding: 10px 20px;
   
   font-size: 1em;
@@ -130,7 +130,7 @@ a.order {
   margin:3em 0;
 }
 a.order:hover{
-	background:#615c85;
+	background:#2dbf0f;
 }
 .total-item,.cart-items{
 	margin-top:0em;
@@ -171,7 +171,7 @@ a.cpns:hover{
 	text-decoration:underline;
 }
 a.continue{
-	background:#fa7455;
+	background:#28a9bd;
 	padding:10px 20px;
 	
 	font-size:1em;
