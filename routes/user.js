@@ -23,10 +23,16 @@ router.get('/profile',isLoggedIn,function(req,res,next){
 
 
 });
+router.get('/chart',isLoggedIn,function(req,res,next){
+    
+      res.render('user/chart')
+});
+
   router.get('/logout',isLoggedIn,function(req,res,next){
     req.logout();
     res.redirect('/');
 });
+
 
 router.use('/',notLoggedIn,function(req,res,next){
     next();
