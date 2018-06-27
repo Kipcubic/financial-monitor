@@ -24,8 +24,18 @@ router.get('/profile',isLoggedIn,function(req,res,next){
 
 });
 router.get('/chart',isLoggedIn,function(req,res,next){
+  Order.find({user:req.user},function(err,orders){
+    if(err){
+      return res.write('Error');
+    }
+    var cart;
+    orders.forEach(function(order){
+      cart=new Cart(order.cart);
+      order.items=cart.generateArray();
+    });
+     res.render('user/chart',{orders:orders})
+  });
     
-      res.render('user/chart')
 });
 
   router.get('/logout',isLoggedIn,function(req,res,next){
