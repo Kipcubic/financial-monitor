@@ -11,6 +11,10 @@ var passport=require('passport');
 var flash=require('connect-flash');
 var validator=require('express-validator');
 var MongoStore=require('connect-mongo')(session);
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+ 
+
 
 
 
@@ -21,6 +25,7 @@ var userRoutes=require('./routes/user');
 var app = express();
 mongoose.connect('mongodb://localhost/financial-monitor');
 require('./config/passport');
+
 
 // view engine setup
 app.engine('.hbs',expressHBS({defaultLayout:'layout',extname:'.hbs'}));
@@ -54,8 +59,42 @@ app.use(function(req,res,next){
 
 app.use('/user', userRoutes);
 app.use('/', index);
+const findDocuments = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('boughtitems');
+  // Find some documents
+  collection.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+       console.log(docs)
+       res.send(docs);
+    callback(docs);
+  });
+}
 
-
+app.get('/chart-data-retrieve', function (req, res, next) {
+// Connection URL
+const url = 'mongodb://localhost:27017';
+ // Database Name
+const dbName = 'financial-monitor';
+ // Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected correctly to server");
+   const db = client.db(dbName);
+    // findDocuments(db, function() {
+    //   client.close();
+    // });
+    const collection = db.collection('boughtitems');
+  // Find some documents
+  collection.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+       console.log(docs)
+       res.send(docs);
+  });
+ });
+  
+  // res.end(JSON.stringify([{ label: 'Monday',data:40 },{ label: 'Tuesday' ,data: 80}, { label: 'Wednesday' ,data: 10},]))
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

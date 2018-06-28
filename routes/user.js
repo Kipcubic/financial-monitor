@@ -1,98 +1,89 @@
 var express = require('express');
-var passport=require('passport');
+var passport = require('passport');
 var router = express.Router();
-var csrf=require('csurf');
-var csrfProtection=csrf();
+var csrf = require('csurf');
+var csrfProtection = csrf();
 router.use(csrfProtection);
 router.use(csrfProtection);
-var Order=require('../models/bought_items');
-var Cart=require('../models/cart');
+var Order = require('../models/bought_items');
+var Cart = require('../models/cart');
 
-router.get('/profile',isLoggedIn,function(req,res,next){
-  Order.find({user:req.user},function(err,orders){
-    if(err){
+router.get('/profile', isLoggedIn, function (req, res, next) {
+  Order.find({ user: req.user }, function (err, orders) {
+    if (err) {
       return res.write('Error');
     }
     var cart;
-    orders.forEach(function(order){
-      cart=new Cart(order.cart);
-      order.items=cart.generateArray();
+    orders.forEach(function (order) {
+      cart = new Cart(order.cart);
+      order.items = cart.generateArray();
     });
-     res.render('user/profile',{orders:orders})
+    res.render('user/profile', { orders: orders })
   });
 
 
 });
-router.get('/chart',isLoggedIn,function(req,res,next){
-  Order.find({user:req.user},function(err,orders){
-    if(err){
-      return res.write('Error');
-    }
-    var cart;
-    orders.forEach(function(order){
-      cart=new Cart(order.cart);
-      order.items=cart.generateArray();
-    });
-     res.render('user/chart',{orders:orders})
-  });
-    
+// router.get('http://localhost:3000/user/chart-data-retrieve', function (req, res, next) {
+//   res.end(JSON.stringify([{ label: 'Monday',data:40 },{ label: 'Tuesday' ,data: 80}, { label: 'Wednesday' ,data: 10},]))
+// });
+router.get('/chart', isLoggedIn, function (req, res, next) {
+
+  res.render('user/chart');
 });
 
-  router.get('/logout',isLoggedIn,function(req,res,next){
-    req.logout();
-    res.redirect('/');
+router.get('/logout', isLoggedIn, function (req, res, next) {
+  req.logout();
+  res.redirect('/');
 });
 
 
-router.use('/',notLoggedIn,function(req,res,next){
-    next();
+router.use('/', notLoggedIn, function (req, res, next) {
+  next();
 });
-router.get('/signup',function(req,res,next){
-    var messages=req.flash('error');
-    res.render('user/signup',{csrfToken:req.csrfToken(),messages:messages,hasErrors:messages.length>0});
-  });
-  router.post('/signup/',passport.authenticate('local-signup',{
-    failureRedirect:'/user/signup',
-    failureFlash:true
-  }),function(req,res,next){
-    if(req.session.oldUrl){      
-      var oldUrl=req.session.oldUrl;
-      req.session.oldUrl=null;
-      res.redirect(oldUrl);       
-    } else
-    {
-      res.redirect('/user/profile');
-    }
-  });
-  
-  router.get('/signin',function(req,res,next){
-    var messages=req.flash('error');
-    res.render('user/signin',{csrfToken:req.csrfToken(),messages:messages,hasErrors:messages.length>0});
-  });
-
-  router.post('/signin/',passport.authenticate('local-signin',{
-    failureRedirect:'/user/signin',
-    failureFlash:true
-  }),function(req,res,next){
-    if(req.session.oldUrl){
-      var oldUrl=req.session.oldUrl;
-      req.session.oldUrl=null;
-      res.redirect(oldUrl);      
-    } else
-    {
-      res.redirect('/user/profile');
-    }
-  });
-   module.exports=router;
-  function isLoggedIn(req,res,next){
-      if(req.isAuthenticated()){
-          return next();
-      }
-     res.redirect('/');
+router.get('/signup', function (req, res, next) {
+  var messages = req.flash('error');
+  res.render('user/signup', { csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 });
+});
+router.post('/signup/', passport.authenticate('local-signup', {
+  failureRedirect: '/user/signup',
+  failureFlash: true
+}), function (req, res, next) {
+  if (req.session.oldUrl) {
+    var oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  } else {
+    res.redirect('/user/profile');
   }
-  function notLoggedIn(req,res,next){
-    if(!req.isAuthenticated()){
-        return next();
-    }
-   res.redirect('/');
+});
+
+router.get('/signin', function (req, res, next) {
+  var messages = req.flash('error');
+  res.render('user/signin', { csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 });
+});
+
+router.post('/signin/', passport.authenticate('local-signin', {
+  failureRedirect: '/user/signin',
+  failureFlash: true
+}), function (req, res, next) {
+  if (req.session.oldUrl) {
+    var oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  } else {
+    res.redirect('/user/profile');
+  }
+});
+module.exports = router;
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/');
+}
+function notLoggedIn(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/');
 }
