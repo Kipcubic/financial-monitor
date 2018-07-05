@@ -1,0 +1,24 @@
+{{> header}}
+<form action="post">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Product Name</label>
+    <input type="text" name="prod_name" class="form-control"  aria-describedby="prod_name" placeholder="Product Name">
+   </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Category</label>
+    <input type="text" name="category" class="form-control"  aria-describedby="category" placeholder="Product Category">
+   </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Product Description</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+   </div>
+   <div class="form-group">
+    <label for="exampleInputEmail1">Pricey</label>
+    <input type="number" name="price" class="form-control"  aria-describedby="price" placeholder="Price">
+   </div>
+<div class="form-group">
+    <label for="exampleFormControlFile1">Product Image</label>
+    <input type="file" class="form-control-file" id="productImage" name="productImage">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

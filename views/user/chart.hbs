@@ -1,113 +1,56 @@
+
 <div class="container">
-    <div id="myChart"></div>
+    <canvas id="myChart" ></canvas>
 </div>
-
 <script>
-    const url = '/chart-data-retrieve';
+    const url = '/user/getdata';
 
-fetch(url)
-
-  // creates promise to work with response from /api/data
-  .then(res => {
-
-    // throws error if there is a problem fetching page
-    if (!res.ok) {
-
-      // returns error with response text of error
-
-      throw new Error(res.statusText);
-
-    }
-
-    // returns data from /api/data page in json format to next promise
-
+fetch(url,{credentials: 'include'})
+.then(res => {if (!res.ok) {
+      throw new Error(res.statusText); }   
     return res.json();
-    console.log('successful');
-
   })
-
-  // creates promise with returned data from previous promise
-  .then(data => {
-
-    // creates employees variable to store JSON data form /api/data
+  .then(data => {  
     let userDatas = data;
-
-    // creates empty employeeInfo array
-    let financialInfo = [];
-
-    // loops through data from employee variable
+    let label = [];
+    let chartData=[];
+ 
     userDatas.forEach(userData => {
-
-      // pushes values from employees variable to empty employeeInfo array
-      financialInfo.push([userData.cart.totalQty,userData.date]);
-     
-
+           const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+        var mydate=new Date(userData.date);
+       var monthname=monthNames[mydate.getMonth()];
+       // var months=mydate.getMonth()+1;
+      label.push([monthname]);
+      chartData.push([userData.cart.totalPrice]);
     });
-
-    // creates chart const with employeeInfo array
-    const chart = {
-      type: "bar", 
- 	backgroundColor: "#2B313B",
- 	plot: {
- 	  borderColor: "#2B313B",
- 	  borderWidth: 5,
- 	  // slice: 90,
- 	  valueBox: {
- 	    placement: 'out',
- 	    text: '%t\n%npv%',
- 	    fontFamily: "Open Sans"
- 	  },
- 	  tooltip:{
- 	    fontSize: '18',
- 	    fontFamily: "Open Sans",
- 	    padding: "5 10",
- 	    text: "%npv%"
- 	  },
- 	  animation:{
-      effect: 2, 
-      method: 5,
-      speed: 500,
-      sequence: 1
-    }
- 	},
- 	source: {
- 	  text: 'gs.statcounter.com',
- 	  fontColor: "#8e99a9",
- 	  fontFamily: "Open Sans"
- 	},
- 	title: {
- 	  fontColor: "#fff",
- 	  text: 'Global Browser Usage',
- 	  align: "left",
- 	  offsetX: 10,
- 	  fontFamily: "Open Sans",
- 	  fontSize: 25
- 	},
- 	subtitle: {
- 	  offsetX: 10,
- 	  offsetY: 10,
- 	  fontColor: "#8e99a9",
- 	  fontFamily: "Open Sans",
- 	  fontSize: "16",
- 	  text: 'May 2016',
- 	  align: "left"
- 	},
- 	plotarea: {
- 	  margin: "20 0 0 0"  
- 	},
-      series: [
-        {
-          values: financialInfo
+   var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: label,
+        datasets: [{
+            label: ['Your expenses'],
+            data:chartData,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:false
+                }
+            }],
+            xAxes: [{
+                type: 'category',
+                labels: label,
+            }]
         }
-      ]
-    };
-
-    // renders zingchart to the page
-     zingchart.render({
-    id: 'myChart',
-    data: chart
-  });;
+    }
+});
 
   // catches errors in promise chain
-  }).catch(error => console.log("fetch error"));
+  }).catch(error => console.log("Error fetching data"+error));
 </script>

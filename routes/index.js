@@ -8,13 +8,13 @@ var bought_items=require('../models/bought_items');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	Product.find(function(err,docs){
-		
+		var user=req.user;		
 		var productChunks=[];
 		var chunkSize=3;
 		for(var i=0;i<docs.length;i+=chunkSize){
 			productChunks.push(docs.slice(i,i+chunkSize));
 		}
-		res.render('shop', { title: 'finance-monitor',products:productChunks});
+		res.render('shop', { title: 'finance-monitor',products:productChunks,user:user});
 	});
 });
 
@@ -38,6 +38,11 @@ router.get('/reduce/:id',function(req,res,next){
 	cart.reduceByOne(productId);
 	req.session.cart=cart;
 	res.redirect('/shopping-cart');
+});
+router.get('/uploadproduct',function(req,res,next){
+	var productId=req.params.id;
+	
+	res.render('/uploadproduct');
 });
 router.get('/remove/:id',function(req,res,next){
 	var productId=req.params.id;
@@ -75,6 +80,7 @@ router.post('/checkout',isLoggedIn,function(req,res,next){
 			res.redirect('/');
 		});
 });
+
 
 module.exports = router;
 function isLoggedIn(req,res,next){
