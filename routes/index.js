@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 var Cart=require('../models/cart');
 var Product=require('../models/product');
 var bought_items=require('../models/bought_items');
-
+var multer  = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now()+path.extname(file.originalname));
+  }
+});
+ 
+var upload = multer({ storage: storage })
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,11 +50,27 @@ router.get('/reduce/:id',function(req,res,next){
 	req.session.cart=cart;
 	res.redirect('/shopping-cart');
 });
-router.get('/uploadproduct',function(req,res,next){
-	var productId=req.params.id;
-	
-	res.render('/uploadproduct');
+
+router.get('/uploadproductform',function(req,res,next){
+	res.render('shop/uploadproduct');
 });
+router.post('/addimage', upload.single('productImage'), function (req, res, next) {
+
+	console.log(req.file);
+const newProduct=new Product({
+	imagePath:req.file.path,
+	productName:req.body.prod_name,
+	description:req.body.description,
+	price:req.body.price,
+	category:req.body.category
+});
+newProduct.save(function (err, product) {
+	if (err) return console.error(err);
+	console.log(product.productName + " saved to bookstore collection.");
+  });
+
+  });
+
 router.get('/remove/:id',function(req,res,next){
 	var productId=req.params.id;
 	var cart=new Cart(req.session.cart?req.session.cart:{});

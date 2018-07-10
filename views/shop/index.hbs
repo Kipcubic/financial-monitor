@@ -1,42 +1,28 @@
   {{> header}}
-{{# each products}}
-<div class="row">
+
+<div class="container">
+  <div class="row">
+    <button class="btn btn-primary">Side bar</button>
+  </div>
+  <div   class="row">
+  {{# each products}}
+
 {{# each this}}
 <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{this.imagePath}}" alt="Card image cap">
+  <img class="img-fluid" src="{{this.imagePath}}" alt="Product Image">
   <div class="card-body">
     <h5 class="card-title">{{this.title }}</h5>
     <p class="card-text">Kshs. {{this.price}}</p>
-    <a href="#" class="btn btn-primary">View</a> <a href="/add-to-cart/{{this._id}}" class="btn btn-success addtocart" data-id="{{this.id}}">Add to cart</a>
+     <a href="/add-to-cart/{{this._id}}" class="btn btn-success addtocart" data-id="{{this.id}}">Add to cart</a>
   </div>
 </div>
 {{/each}}
-</div>
 {{/each}}
-{{!-- 
-<script>
-  $(document).ready(function(){
+</div>
 
-    let links = Array.from(document.querySelectorAll('a.addtocart'))
-    links.forEach(function(link){
-      link.addEventListener('click',function(e){
-        e.preventDefault();
-        let linkId = this.getAttribute('data-id');
-        
-        $.ajax({
-          type:'GET',
-          url:'/add-to-cart/'+linkId,
-          dataType:'application/json',
-          success:function(response){
-            console.log(response);
-          }
+</div>
 
-        });
-        
-      });
-    });
-  });
-</script> --}}
+
 
 
 
