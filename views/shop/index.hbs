@@ -1,4 +1,4 @@
-  {{> header}}
+  {{!-- {{> header}}
 
 <div class="container">
   <div class="row">
@@ -20,7 +20,94 @@
 {{/each}}
 </div>
 
+</div> --}}
+{{> header}}
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Categories
+                    </a>
+                </li>
+                <li>
+                    <a href="#">TVS, Audio and Cameras</a>
+                </li>
+                <li>
+                    <a href="#">Computing</a>
+                </li>
+                <li>
+                    <a href="#">Home and Living</a>
+                </li>
+                <li>
+                    <a href="#">Baby, Kids and Toys</a>
+                </li>
+                <li>
+                    <a href="#">Fashion</a>
+                </li>
+              
+            </ul>
+        </div>
+        <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><i class="fas fa-bars"></i> Shops</a>
+        <div id="page-content-wrapper">
+            <div class="container">
+
+{{# each products}}
+  <div class="row">
+{{# each this}}
+    <div class="col">
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{this.title}}</h4>
+          </div>
+          <div class="card-body">
+             <img src="{{this.imagePath}}" class="img-fluid"/>
+            <h5 class="card-title pricing-card-title">Kshs. {{this.price}} <small class="text-muted">/ Item</small></h5>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>{{this.title}}</li>
+              <li>{{this.description}}</li>
+             
+            </ul>
+            <button type="button" class="btn  btn-primary">Buy</button>
+          </div>
+        </div>      
+    </div>
+{{/each}}
 </div>
+{{/each}}
+              
+{{!--  
+{{# each products}}
+{{# each this}}
+  <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{this.category}}</h4>
+          </div>
+          <div class="card-body">
+             
+            <h1 class="card-title pricing-card-title">Kshs. {{this.price}} <small class="text-muted">/ Item</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>{{this.title}}</li>
+              <li>{{this.description}}</li>
+             
+            </ul>
+            <button type="button" class="btn  btn-primary">Buy</button>
+          </div>
+        
+{{/each}}
+{{/each}} --}}
+  
+
+
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 
 
 

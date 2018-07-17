@@ -28,8 +28,8 @@ router.get('/getdata',function (req, res,next) {
     });
  
  });
-router.get('/chart', isLoggedIn, function (req, res, next) {
- res.render('user/chart');
+router.get('/recent', isLoggedIn, function (req, res, next) {
+ res.render('user/recent');
 });
 
   router.get('/logout', isLoggedIn, function (req, res, next) {
