@@ -17,28 +17,23 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
     });
-    res.render('user/profile', { orders: orders })
+    res.render('user/profile', { orders: orders });
   
   });
+});
+router.get('/recent',isLoggedIn,function(req,res){
+res.render('user/recent');
 });
 router.get('/getdata',function (req, res,next) {
   Order.find({user:req.user},function (err,docs) {
     console.log(req.user);
     res.send(docs);
     });
- 
- });
-router.get('/recent', isLoggedIn, function (req, res, next) {
- res.render('user/recent');
-});
-
+  });
   router.get('/logout', isLoggedIn, function (req, res, next) {
   req.logout();
   res.redirect('/');
 });
-
-
-
 router.use('/', notLoggedIn, function (req, res, next) {
   next();
 });
@@ -89,7 +84,7 @@ function notLoggedIn(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/user/signup');
+  res.redirect('/');
 }
 
 

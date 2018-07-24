@@ -28,6 +28,9 @@ router.get('/', function(req, res, next) {
 		res.render('shop', { title: 'finance-monitor',products:productChunks,user:user});
 	});
 });
+router.get('/computing',function(req,res){
+res.render('shop/computing');
+});
 
 router.get('/add-to-cart/:id',function(req,res,next){
 	

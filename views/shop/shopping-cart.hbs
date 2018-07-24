@@ -35,7 +35,7 @@
  --}}
 
             
-
+{{> header}}
   {{# if products}}
   <div class="row">
   <div class="col-3">
@@ -47,9 +47,9 @@
 				 <span>Total</span>
 				 <span class="total1">{{totalPrice}}</span>
 				 <span>Discount</span>
-				 <span class="total1">---</span>
+				 <span class="total1">Kshs. 0</span>
 				 <span>Delivery Charges</span>
-				 <span class="total1">---</span>
+				 <span class="total1">Kshs. 0</span>
 				 <div class="clearfix"></div>				 
 			 </div>	
 			 <ul class="total_price">
@@ -73,7 +73,7 @@
 				 <div class="close1"> </div>
 				 <div class="cart-sec simpleCart_shelfItem">
 						<div class="cart-item cyc">
-							 <img src="{{this.imagePath}}" class="img-responsive" alt="Product Image"/>
+							 <img src="{{this.item.imagePath}}" class="img-responsive" alt="Image for product"/>
 						</div>
 					   <div class="cart-item-info">
 						<h3><a href="#">{{this.item.title}}</a><span>Quantity: {{this.qty}}</span></h3>
