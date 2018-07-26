@@ -11,24 +11,45 @@ var moment = require('helper-moment');
 var handlebars = require('handlebars');
 handlebars.registerHelper('moment', require('helper-moment'));
 
+// profile landing
 router.get('/profile', isLoggedIn, function (req, res, next) {
   Order.find({ user: req.user }, function (err, orders) {
     if (err) {
       return res.write('Error');
     }
+    
     var cart;
     orders.forEach(function (order) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
     });
     res.render('user/profile', { orders: orders });
-    
   
   }).sort({'date': -1}).limit(5);
 });
+
+// get recent transactions
 router.get('/recent',isLoggedIn,function(req,res){
-res.render('user/recent');
+  Order.find({ user: req.user }, function (err, orders) {
+    if (err) {
+      return res.write('Error');
+    }
+    
+    var cart;
+    orders.forEach(function (order) {
+      cart = new Cart(order.cart);
+      order.items = cart.generateArray();
+    });
+    res.render('user/recent', { orders: orders });
+  
+  });
 });
+
+// get update form
+router.get('/update',isLoggedIn,function(req,res){
+  res.render('user/profile-update');
+  });
+//post update  user information 
 router.post('/update',function(req,res){
   var first_name = req.body.first_name && req.body.first_name.trim();
   var last_name = req.body.last_name && req.body.last_name.trim();
@@ -49,10 +70,10 @@ router.post('/update',function(req,res){
     res.redirect('/user/update');
 });
 });
-router.get('/update',isLoggedIn,function(req,res){
 
-  res.render('user/profile-update',{csrfToken: req.csrfToken()});
-  });
+
+
+  //get data to Fetch API
 router.get('/getdata',function (req, res,next) {
   Order.find({user:req.user},function (err,docs) {
     console.log(req.user);
