@@ -5,7 +5,11 @@ var csrf = require('csurf');
 var csrfProtection = csrf();
 router.use(csrfProtection);
 var Order = require('../models/bought_items');
+var User=require('../models/user');
 var Cart = require('../models/cart');
+var moment = require('helper-moment');
+var handlebars = require('handlebars');
+handlebars.registerHelper('moment', require('helper-moment'));
 
 router.get('/profile', isLoggedIn, function (req, res, next) {
   Order.find({ user: req.user }, function (err, orders) {
@@ -18,12 +22,37 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
       order.items = cart.generateArray();
     });
     res.render('user/profile', { orders: orders });
+    
   
-  });
+  }).sort({'date': -1}).limit(5);
 });
 router.get('/recent',isLoggedIn,function(req,res){
 res.render('user/recent');
 });
+router.post('/update',function(req,res){
+  var first_name = req.body.first_name && req.body.first_name.trim();
+  var last_name = req.body.last_name && req.body.last_name.trim();
+  var income = req.body.income && req.body.income.trim();
+  var additional_income = req.body.additional_income && req.body.additional_income.trim();
+  User.update({user: req.user}, {
+    first_name:first_name,
+    last_name: last_name,
+    income: income,
+    additional_income: additional_income   
+}, function(err) {
+    if(err) {
+        console.log('update error', err);
+    }
+
+    req.flash('success', "Successful Updated !");
+    res.location('/user/update');
+    res.redirect('/user/update');
+});
+});
+router.get('/update',isLoggedIn,function(req,res){
+
+  res.render('user/profile-update',{csrfToken: req.csrfToken()});
+  });
 router.get('/getdata',function (req, res,next) {
   Order.find({user:req.user},function (err,docs) {
     console.log(req.user);

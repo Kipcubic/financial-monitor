@@ -1,1 +1,124 @@
-Form to update profirl settings
+
+
+ 
+{{> dashboardHeader}}
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/user/profile">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/user/recent">
+                  <span ><i class="fa fa-binoculars"></i></span>
+                  Recent Transactions
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/user/local">
+                  <span ><i class="fa fa-shopping-basket"></i></span>
+                  Products Bought
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span ><i class="fa fa-car"></i></span>
+                  Customers
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span ><i class="fa fa-file"></i></span>
+                  Reports
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="layers"></span>
+                  Integrations
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Saved reports</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Current month
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Last quarter
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Social engagement
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text"></span>
+                  Year-end sale
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">User Information Update</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+
+            </div>
+          </div>
+
+<form method="post" action="/user/update" >
+  <div class="form-group">
+    <label for="exampleInputEmail1">First Name</label>
+    <input type="text" nameclass="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="first_name" value="{{user.first_name}}">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Last Name</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="last_name" value="{{user.last_name}}">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+   <div class="form-group">
+    <label for="exampleInputEmail1">Monthly Income</label>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="income" value="{{user.income}}">
+    <small id="emailHelp" class="form-text text-muted">It helps</small>
+  </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Additional Income</label>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="additional_income" value="{{user.additional_income}}">
+    <small id="emailHelp" class="form-text text-muted">This is Important</small>
+  </div>
+
+ <input type="hidden" name="_csrf" value="{{csrfToken}}">
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+         
+        </main>
+      </div>
+    </div>
+
+
+
+ 
+

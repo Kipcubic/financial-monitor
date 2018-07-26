@@ -11,9 +11,12 @@ var passport=require('passport');
 var flash=require('connect-flash');
 var validator=require('express-validator');
 var MongoStore=require('connect-mongo')(session);
+var moment = require('helper-moment');
 
 var index = require('./routes/index');
 var userRoutes=require('./routes/user');
+
+
 
 
 var app = express();
@@ -51,6 +54,7 @@ app.use(function(req,res,next){
   res.locals.login=req.isAuthenticated();
   res.locals.session=req.session;
   res.locals.userID = req.user;
+  res.locals.moment=require('moment');
  
   next();
 });
