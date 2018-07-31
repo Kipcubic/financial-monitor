@@ -13,6 +13,7 @@ handlebars.registerHelper('moment', require('helper-moment'));
 
 // profile landing
 router.get('/profile', isLoggedIn, function (req, res, next) {
+
   Order.find({ user: req.user }, function (err, orders) {
     if (err) {
       return res.write('Error');
@@ -23,7 +24,8 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
     });
-    res.render('user/profile', { orders: orders });
+   
+    res.render('user/profile', { orders: orders});
   
   }).sort({'date': -1}).limit(5);
 });
@@ -47,10 +49,11 @@ router.get('/recent',isLoggedIn,function(req,res){
 
 // get update form
 router.get('/update',isLoggedIn,function(req,res){
-  res.render('user/profile-update');
+
+  res.render('user/profile-update',{csrfToken: req.csrfToken(),user:req.user});
   });
 //post update  user information 
-router.post('/update',function(req,res){
+router.post('/update',isLoggedIn,function(req,res){
   var first_name = req.body.first_name && req.body.first_name.trim();
   var last_name = req.body.last_name && req.body.last_name.trim();
   var income = req.body.income && req.body.income.trim();
@@ -71,13 +74,38 @@ router.post('/update',function(req,res){
 });
 });
 
-
+// get monthly
+router.get('/monthly',isLoggedIn,function(req,res,next){
+  Order.aggregate(
+    [ 
+        { 
+          $match : { user : req.user._id } 
+        },
+      {
+        $group:
+          {
+            _id: { month: { $month: "$date"}, year: { $year: "$date" } },
+            totalAmount: { $sum: "$cart.totalPrice" },
+            count: { $sum: 1 }
+          }
+      }
+    ],function (err, result) {
+      if (err) {
+          console.log(err);
+          return;
+      }
+      var userSalary=req.user.income+req.user.additional_income; 
+    
+      console.log(req.user);
+      res.render('user/monthly',{ result:result,userSalary});
+  });
+    
+});
 
   //get data to Fetch API
 router.get('/getdata',function (req, res,next) {
   Order.find({user:req.user},function (err,docs) {
-    console.log(req.user);
-    res.send(docs);
+       res.send(docs);
     });
   });
   router.get('/logout', isLoggedIn, function (req, res, next) {

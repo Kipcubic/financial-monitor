@@ -1,26 +1,4 @@
-  {{!-- {{> header}}
 
-<div class="container">
-  <div class="row">
-    <button class="btn btn-primary">Side bar</button>
-  </div>
-  <div   class="row">
-  {{# each products}}
-
-{{# each this}}
-<div class="card" style="width: 18rem;">
-  <img class="img-fluid" src="{{this.imagePath}}" alt="Product Image">
-  <div class="card-body">
-    <h5 class="card-title">{{this.title }}</h5>
-    <p class="card-text">Kshs. {{this.price}}</p>
-     <a href="/add-to-cart/{{this._id}}" class="btn btn-success addtocart" data-id="{{this.id}}">Add to cart</a>
-  </div>
-</div>
-{{/each}}
-{{/each}}
-</div>
-
-</div> --}}
 {{> header}}
     <div id="wrapper">
 
@@ -76,31 +54,7 @@
 {{/each}}
 </div>
 {{/each}}
-              
-{{!--  
-{{# each products}}
-{{# each this}}
-  <div class="card mb-4 box-shadow">
-          <div class="card-header">
-            <h4 class="my-0 font-weight-normal">{{this.category}}</h4>
-          </div>
-          <div class="card-body">
-             
-            <h1 class="card-title pricing-card-title">Kshs. {{this.price}} <small class="text-muted">/ Item</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>{{this.title}}</li>
-              <li>{{this.description}}</li>
-             
-            </ul>
-            <button type="button" class="btn  btn-primary">Buy</button>
-          </div>
-        
-{{/each}}
-{{/each}} --}}
-  
-
-
-
+            
     <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();

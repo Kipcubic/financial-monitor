@@ -20,7 +20,8 @@ var userRoutes=require('./routes/user');
 
 
 var app = express();
-mongoose.connect('mongodb://localhost/financial-monitor');
+mongoose.connect("mongodb://localhost:27017/financial-monitor", { useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost::27017/financial-monitor');
 require('./config/passport');
 
 
@@ -40,7 +41,7 @@ app.use(validator());
 app.use(cookieParser());
 app.use(session(
   {secret:'my little secret',
-  resave:true,
+  resave:false,
   saveUninitialized:false,
   store:new MongoStore({mongooseConnection:mongoose.connection}),
   cookie:{maxAge:180*60*1000}
