@@ -101,6 +101,30 @@ router.get('/monthly',isLoggedIn,function(req,res,next){
   });
     
 });
+//get expeniture by actegory
+router.get('/bycategory',isLoggedIn,function(req,res){
+  Order.aggregate(
+    [ 
+        { 
+          $match : { user : req.user._id } 
+        },
+      {
+        $group:
+          {
+            _id : "$cart.items"
+           
+          }
+      }
+    ],function (err, result) {
+      if (err) {
+          console.log(err);
+          return;
+      }
+        console.log(result);
+      res.render('user/bycategory',{ result:result});
+  });
+    
+});
 
   //get data to Fetch API
 router.get('/getdata',function (req, res,next) {

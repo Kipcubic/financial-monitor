@@ -50,7 +50,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Complete List of Transactions</h1>
+            <h1 class="h2">Expenses by Category</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
                 <button class="btn btn-sm btn-outline-secondary">Share</button>
@@ -63,40 +63,10 @@
             </div>
           </div>
 
-     
-          
-{{# each orders}}
-
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-            <h3>{{moment this.date "MMMM Do YYYY, h:mm:ss a"}}</h3>
-            <h6>{{moment this.date endOf="week" fromNow=true}} Ago</h6>
-            {{this.cart.totalPrice}}
-            
-              <thead>
-                <tr>
-                  <th>Item Price</th>
-                  <th>Item Name</th>
-                  <th>Item Description</th>
-                  <th>Category</th>
-                  <th>Quantity</th>
-                </tr>
-              </thead>
-              {{# each this.items}}
-              <tbody>
-                <tr>
-                  <td>{{this.price}}</td>
-                  <td>{{this.item.title}}</td>
-                  <td>{{this.item.description}}</td>
-                  <td>{{this.item.category}}</td>
-                  <td>{{this.qty}}</td>
-                </tr>
-              </tbody>
-               {{/each}}
-            </table>
-           
-          {{/each}}
-          </div>
+     By Category {{#result}}
+     {{#_id}}
+     {{/_id}}
+     {{/result}}
         </main>
       </div>
     </div>

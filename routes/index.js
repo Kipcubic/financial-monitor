@@ -102,13 +102,13 @@ router.post('/checkout',isLoggedIn,function(req,res,next){
 	var boughtItems=new bought_items({
 		user:req.user,
 		cart:cart
-
 		});
 		boughtItems.save(function(err,result){
 			req.flash('Success','Successfully added product');
 			req.session.cart=null;
 			res.redirect('/');
 		});
+	
 });
 
 
