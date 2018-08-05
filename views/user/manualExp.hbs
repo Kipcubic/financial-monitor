@@ -2,13 +2,13 @@
 {{> dashboardHeader}}
     <div class="container-fluid">
       <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" href="/user/profile">
                   <span data-feather="home"></span>
-                  Dashboard 
+                  Dashboard <span class="sr-only">Current</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -20,7 +20,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/user/monthly">
                   <span ><i class="fa fa-shopping-basket"></i></span>
-                  Monthly Expenditures <span class="sr-only">Current</span>
+                  Monthly Expenditures
                 </a>
               </li>
             
@@ -50,44 +50,40 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Monthly Expenditures</h1>  <button class="btn btn-success">Kshs.{{userSalary}}</button>
-         
-          </div>  
+            <h1 class="h2">User Information Update</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
 
+            </div>
+          </div>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Month</th>
-      <th scope="col">Year</th>
-      <th scope="col">Total Spent (Kshs)</th>
-      <th scope="col">Transactions</th>
-    </tr>
-  </thead>
-  {{#result}}
-  <tbody>
-    <tr>
-      {{#_id}}
-      <td>{{month}}</td>
-      <td>{{year}}</td>
-      {{/_id}}
-      <th scope="row">
-
-        {{totalAmount}}
-        
-        </th>
-      
-      <td>{{count}}</td>
-    </tr>
+<form action="/user/manualExp" method="post">
+  <div class="form-group">    
+  <label for="exampleInputEmail1">First Name</label>
+    <input name="first_name" type="text" class="form-control"  aria-describedby="emailHelp"  value="{{user.first_name}}">
+  </div>
+   <div class="form-group">    
+  <label for="exampleInputEmail1">Last Name</label>
+    <input name="last_name" type="text" class="form-control"  aria-describedby="emailHelp"  value="{{user.last_name}}">
+  </div>
+  <div class="form-group">
+  <label for="exampleInputEmail1">Monthly Income</label>
+    <input name="income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.income}}">
+  </div>
+  <div class="form-group">
+  <label for="exampleInputEmail1">Monthly Income</label>
+    <input name="additional_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.additional_income}}">
+  </div>
+  <div class="form-group">
+<input type="hidden" name="_csrf" value="{{csrfToken}}">
+  <button type="submit" class="btn btn-primary">Register</button>
+  </div>
   
-  </tbody>
-  {{/result}}
-</table>
-
+  
+</form>
+         
         </main>
       </div>
     </div>
- 
 
 
 

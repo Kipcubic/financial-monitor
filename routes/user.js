@@ -54,19 +54,24 @@ router.get('/update',isLoggedIn,function(req,res){
   });
 //post update  user information 
 router.post('/update',isLoggedIn,function(req,res){
-  var first_name = req.body.first_name && req.body.first_name.trim();
-  var last_name = req.body.last_name && req.body.last_name.trim();
-  var income = req.body.income && req.body.income.trim();
-  var additional_income = req.body.additional_income && req.body.additional_income.trim();
-  User.update({user: req.user}, {
-    first_name:first_name,
-    last_name: last_name,
-    income: income,
-    additional_income: additional_income   
+  console.log(req.body);
+  var first_name = req.body.first_name;
+  var last_name = req.body.last_name;
+  var income = req.body.income;
+  var additional_income = req.body.additional_income;
+  User.update({_id: req.user._id}, {
+    $set:{
+      first_name:first_name,
+      last_name: last_name,
+      income: income,
+      additional_income: additional_income 
+    }
+      
 }, function(err) {
     if(err) {
         console.log('update error', err);
     }
+
 
     req.flash('success', "Successful Updated !");
     res.location('/user/update');
@@ -93,15 +98,20 @@ router.get('/monthly',isLoggedIn,function(req,res,next){
       if (err) {
           console.log(err);
           return;
-      }
-      var userSalary=req.user.income+req.user.additional_income; 
-    
-      console.log(req.user);
+      }  
+      Order.find({user:req.user},function(err,exp){
+        if(err){
+          return err
+        }
+        console.log(cart);
+      });
+      var userSalary=req.user.income+req.user.additional_income;
+      
       res.render('user/monthly',{ result:result,userSalary});
   });
     
 });
-//get expeniture by actegory
+//get expeniture by category
 router.get('/bycategory',isLoggedIn,function(req,res){
   Order.aggregate(
     [ 
@@ -124,6 +134,14 @@ router.get('/bycategory',isLoggedIn,function(req,res){
       res.render('user/bycategory',{ result:result});
   });
     
+});
+//get manual expenses page
+router.get('/manualExp',function(req,res){
+ res.render('user/manualExp',{csrfToken: req.csrfToken()});
+});
+//post manual expenses
+router.post('/manualExp',function(req,res){
+res.send('working......')
 });
 
   //get data to Fetch API

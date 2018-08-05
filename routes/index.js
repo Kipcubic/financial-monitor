@@ -69,7 +69,7 @@ const newProduct=new Product({
 });
 newProduct.save(function (err, product) {
 	if (err) return console.error(err);
-	console.log(product.productName + " saved to bookstore collection.");
+	console.log(product.productName + " saved");
   });
 
   });
@@ -95,7 +95,13 @@ router.get('/checkout',isLoggedIn,function(req,res,next){
 		return res.render('shop/shopping-cart');
 	}
 	var cart=new Cart(req.session.cart);
-	res.render('shop/checkout',{total:cart.totalPrice});
+	
+	var userIncome=req.user.income+req.user.additional_income;
+	var totalExpenditure=cart.totalPrice;
+	console.log(userIncome);
+	res.render('shop/checkout',{total:cart.totalPrice, unable:userIncome<totalExpenditure});
+
+	
 });
 router.post('/checkout',isLoggedIn,function(req,res,next){
 	var cart=new Cart(req.session.cart);

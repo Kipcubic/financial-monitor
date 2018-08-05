@@ -1,10 +1,18 @@
 <div class="row">
     
     <form method="post" action="/checkout">
-    
     <h1>Total:{{total}}</h1>
+    {{# if unable}}
+Cannot process this transactions
+
+    {{else}}
+     
 
     <button type="submit" class="btn btn-primary">Complete Transactions</button>
+Go ahead and complete transactions
+    {{/if}}
+
+   
     </form>
 
 </div>

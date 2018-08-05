@@ -32,7 +32,7 @@ passport.use('local-signup',new LocalStrategy({
         }
         if (user){
             
-            return done(null,false,{message:'Email is alreday in use'});
+            return done(null,false,{message:'Email is already in use'});
         }
         var newUser=new User();
         newUser.email=email;
