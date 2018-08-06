@@ -62,11 +62,13 @@
               </button>
             </div>
           </div>
+{{#result}}
+{{#_id}}
+<button type="button" class="btn btn-success btn-lg btn-block">{{category}}
+{{/_id}} ---Spent {{totalAmount}}
+</button>
+{{/result}}
 
-     By Category {{#result}}
-     {{#_id}}
-     {{/_id}}
-     {{/result}}
         </main>
       </div>
     </div>

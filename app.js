@@ -29,6 +29,7 @@ require('./config/passport');
 app.engine('.hbs',expressHBS({defaultLayout:'layout',extname:'.hbs'}));
 app.set('view engine', '.hbs');
 
+
 //make upload folder public
 // app.use(express.static('uploads'));
 

@@ -7,6 +7,7 @@ var userSchema=new Schema({
     first_name:{type:String,required:true},
     last_name:{type:String,required:true},
     income:{type:Number,required:true},
+ 
     additional_income:{type:Number,required:true}
 });
 userSchema.methods.encryptPassword=function(password){

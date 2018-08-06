@@ -54,7 +54,6 @@
          
           </div>  
 
-
 <table class="table table-hover">
   <thead>
     <tr>
@@ -72,9 +71,9 @@
       <td>{{year}}</td>
       {{/_id}}
       <th scope="row">
-
+       
         {{totalAmount}}
-        
+       
         </th>
       
       <td>{{count}}</td>
@@ -83,10 +82,43 @@
   </tbody>
   {{/result}}
 </table>
+<div class="alert alert-warning" role="alert">
+  High Expenditures
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Month</th>
+      <th scope="col">Year</th>
+      <th scope="col">Total Spent (Kshs)</th>
+      <th scope="col">Transactions</th>
+    </tr>
+  </thead>
+  {{#gt}}
+  <tbody>
+    <tr>
+      {{#_id}}
+      <td>{{month}}</td>
+      <td>{{year}}</td>
+      {{/_id}}
+      <th scope="row">
+       <button type="button" class="btn btn-danger">{{totalAmount}}</button>
+        
+       
+        </th>
+      
+      <td>{{count}}</td>
+    </tr>
+  
+  </tbody>
+  {{/gt}}
+</table>
 
         </main>
       </div>
     </div>
+ 
+
  
 
 

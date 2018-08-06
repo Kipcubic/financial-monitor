@@ -7,8 +7,10 @@ router.use(csrfProtection);
 var Order = require('../models/bought_items');
 var User=require('../models/user');
 var Cart = require('../models/cart');
+var ManualEx= require('../models/manualExp');
 var moment = require('helper-moment');
 var handlebars = require('handlebars');
+
 handlebars.registerHelper('moment', require('helper-moment'));
 
 // profile landing
@@ -54,7 +56,7 @@ router.get('/update',isLoggedIn,function(req,res){
   });
 //post update  user information 
 router.post('/update',isLoggedIn,function(req,res){
-  console.log(req.body);
+  
   var first_name = req.body.first_name;
   var last_name = req.body.last_name;
   var income = req.body.income;
@@ -84,7 +86,7 @@ router.get('/monthly',isLoggedIn,function(req,res,next){
   Order.aggregate(
     [ 
         { 
-          $match : { user : req.user._id } 
+          $match : { user : req.user._id} 
         },
       {
         $group:
@@ -103,35 +105,63 @@ router.get('/monthly',isLoggedIn,function(req,res,next){
         if(err){
           return err
         }
-        console.log(cart);
+        
       });
       var userSalary=req.user.income+req.user.additional_income;
-      
-      res.render('user/monthly',{ result:result,userSalary});
+      var gt=[];
+      if(result[0].totalAmount>userSalary)
+      {
+        gt.push(result[0])
+      }
+      if(result[1].totalAmount>userSalary)
+      {
+        gt.push(result[1])
+      }
+      if(result[2].totalAmount>userSalary)
+      {
+        gt.push(result[2])
+      }
+      if(result[3].totalAmount>userSalary)
+      {
+        gt.push(result[3])
+      }
+     
+    
+  
+      res.render('user/monthly',{ result:result,userSalary,gt:gt});
+    
   });
     
 });
 //get expeniture by category
 router.get('/bycategory',isLoggedIn,function(req,res){
-  Order.aggregate(
+  ManualEx.aggregate(
     [ 
-        { 
-          $match : { user : req.user._id } 
-        },
-      {
-        $group:
-          {
-            _id : "$cart.items"
-           
-          }
-      }
+      { 
+        $match : { user : req.user._id} 
+      },
+        {
+          $group:
+            {
+              _id: { category:"$category"},
+              totalAmount: { $sum: "$totalAmount"},
+              count: { $sum: 1 }
+            }
+        }
     ],function (err, result) {
       if (err) {
           console.log(err);
           return;
       }
-        console.log(result);
-      res.render('user/bycategory',{ result:result});
+      console.log(result);
+      var userSalary=req.user.income+req.user.additional_income;
+      var total=result[0].totalAmount + result[1].totalAmount;
+      var per=(result[0].totalAmount/total)*100;
+      var per2=(result[1].totalAmount/total)*100;
+      
+
+        
+      res.render('user/bycategory',{ result:result,userSalary,per,per2});
   });
     
 });
@@ -141,7 +171,22 @@ router.get('/manualExp',function(req,res){
 });
 //post manual expenses
 router.post('/manualExp',function(req,res){
-res.send('working......')
+
+  var newManualExp=new ManualEx();
+  newManualExp.user=req.user;
+  newManualExp.totalAmount=req.body.totalAmount;
+  newManualExp.category=req.body.category;
+  newManualExp.description=req.body.description;
+  newManualExp.save(function(err,result){
+      if(err){
+          return err;
+      }
+      req.flash('success', "Successful Updated !");
+      res.location('/user/update');
+      res.redirect('/user/update'); 
+      
+  });
+
 });
 
   //get data to Fetch API

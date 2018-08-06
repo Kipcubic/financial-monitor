@@ -50,7 +50,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">User Information Update</h1>
+            <h1 class="h2">Manual Expenditures Entry</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
 
             </div>
@@ -58,24 +58,28 @@
 
 <form action="/user/manualExp" method="post">
   <div class="form-group">    
-  <label for="exampleInputEmail1">First Name</label>
-    <input name="first_name" type="text" class="form-control"  aria-describedby="emailHelp"  value="{{user.first_name}}">
+  <label for="exampleInputEmail1">Kshs:</label>
+    <input name="totalAmount" type="number" class="form-control"  aria-describedby="emailHelp"  >
   </div>
-   <div class="form-group">    
-  <label for="exampleInputEmail1">Last Name</label>
-    <input name="last_name" type="text" class="form-control"  aria-describedby="emailHelp"  value="{{user.last_name}}">
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Category</label>
   </div>
+  <select class="custom-select" id="category" name="category">
+    <option selected>Choose...</option>
+    <option value="computing">Computing</option>
+    <option value="restaurant">Restaurants</option>
+    <option value="rentals">Rentals</option>
+  </select>
+</div>
   <div class="form-group">
-  <label for="exampleInputEmail1">Monthly Income</label>
-    <input name="income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.income}}">
+    <label for="exampleFormControlTextarea1">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
   </div>
-  <div class="form-group">
-  <label for="exampleInputEmail1">Monthly Income</label>
-    <input name="additional_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.additional_income}}">
-  </div>
+
   <div class="form-group">
 <input type="hidden" name="_csrf" value="{{csrfToken}}">
-  <button type="submit" class="btn btn-primary">Register</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
   </div>
   
   
