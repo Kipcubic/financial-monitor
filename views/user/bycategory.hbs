@@ -64,9 +64,18 @@
           </div>
 {{#result}}
 {{#_id}}
-<button type="button" class="btn btn-success btn-lg btn-block">{{category}}
-{{/_id}} ---Spent {{totalAmount}}
-</button>
+<div class="card">
+  <div class="card-header">
+   <b>{{category}}</b> 
+  </div>
+  <div class="card-body">
+   {{/_id}}
+    <a href="#" class="btn btn-primary">Kshs. {{totalAmount}}</a>
+  </div>
+</div>
+<br />
+
+
 {{/result}}
 
         </main>

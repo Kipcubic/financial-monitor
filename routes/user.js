@@ -155,14 +155,12 @@ router.get('/bycategory',isLoggedIn,function(req,res){
       }
       console.log(result);
       var userSalary=req.user.income+req.user.additional_income;
-      var total=result[0].totalAmount + result[1].totalAmount;
-      var per=(result[0].totalAmount/total)*100;
-      var per2=(result[1].totalAmount/total)*100;
+    
       
 
         
-      res.render('user/bycategory',{ result:result,userSalary,per,per2});
-  });
+      res.render('user/bycategory',{ result:result,userSalary);
+  }).sort({'date': -1}).limit(5);
     
 });
 //get manual expenses page
@@ -182,8 +180,8 @@ router.post('/manualExp',function(req,res){
           return err;
       }
       req.flash('success', "Successful Updated !");
-      res.location('/user/update');
-      res.redirect('/user/update'); 
+      res.location('/user/manualExp');
+      res.redirect('/user/manualExp'); 
       
   });
 
