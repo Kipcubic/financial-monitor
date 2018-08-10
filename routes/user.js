@@ -45,8 +45,7 @@ router.get('/recent',isLoggedIn,function(req,res){
       order.items = cart.generateArray();
     });
     res.render('user/recent', { orders: orders });
-  
-  });
+    });
 });
 
 // get update form
@@ -133,7 +132,7 @@ router.get('/monthly',isLoggedIn,function(req,res,next){
   });
     
 });
-//get expeniture by category
+//get expenditure by category
 router.get('/bycategory',isLoggedIn,function(req,res){
   ManualEx.aggregate(
     [ 
@@ -159,17 +158,17 @@ router.get('/bycategory',isLoggedIn,function(req,res){
       
 
         
-      res.render('user/bycategory',{ result:result,userSalary);
-  }).sort({'date': -1}).limit(5);
+      res.render('user/bycategory',{ result:result,userSalary});
+  }).sort({'totalAmount': 1});
     
 });
 //get manual expenses page
 router.get('/manualExp',function(req,res){
+  
  res.render('user/manualExp',{csrfToken: req.csrfToken()});
 });
 //post manual expenses
 router.post('/manualExp',function(req,res){
-
   var newManualExp=new ManualEx();
   newManualExp.user=req.user;
   newManualExp.totalAmount=req.body.totalAmount;
@@ -185,7 +184,56 @@ router.post('/manualExp',function(req,res){
       
   });
 
+  
+
 });
+
+//get monthly earnings page
+router.get('/monthlyEarning',function(req,res){
+  res.render('user/monthlyEarning',{csrfToken: req.csrfToken(),user:req.user});
+  });
+
+router.post('/monthlyEarning',function(req,res){
+  var jan_income = req.body.jan_income;
+  var feb_income = req.body.feb_income;
+  var march_income = req.body.march_income;
+  var april_income = req.body.april_income;
+  var may_income = req.body.may_income;
+  var june_income = req.body.june_income;
+  var july_income = req.body.july_income;
+  var income = req.body.income;
+  var sept_income = req.body.sept_income;
+  var octo_income = req.body.octo_income;
+  var nov_income = req.body.nov_income;
+  var dec_income = req.body.dec_income;
+  // var additional_income = req.body.additional_income;
+  User.update({_id: req.user._id}, {
+    $set:{
+       jan_income :jan_income,
+       feb_income : feb_income,
+       march_income: march_income,
+      april_income : april_income,
+      may_income : may_income,
+       june_income : june_income,
+       july_income : july_income,
+        income : income,
+       sept_income : sept_income,
+       octo_income : octo_income,
+       nov_income : nov_income,
+       dec_income : dec_income
+    }
+      
+}, function(err) {
+    if(err) {
+        console.log('update error', err);
+    }
+
+
+    req.flash('success', "Successful Updated !");
+    res.location('/user/monthlyEarning');
+    res.redirect('/user/monthlyEarning');
+});
+  });
 
   //get data to Fetch API
 router.get('/getdata',function (req, res,next) {

@@ -62,28 +62,60 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">User Information Update</h1>
+            <h1 class="h2">Monthly Income Update</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
 
             </div>
           </div>
 
-<form action="/user/update" method="post">
-  <div class="form-group">    
-  <label for="exampleInputEmail1">First Name</label>
-    <input name="first_name" type="text" class="form-control"  aria-describedby="emailHelp"  value="{{user.first_name}}">
-  </div>
-   <div class="form-group">    
-  <label for="exampleInputEmail1">Last Name</label>
-    <input name="last_name" type="text" class="form-control"  aria-describedby="emailHelp"  value="{{user.last_name}}">
-  </div>
+<form action="/user/monthlyEarning" method="post">
   <div class="form-group">
-  <label for="exampleInputEmail1">Monthly Income</label>
+  <label for="exampleInputEmail1">January</label>
+    <input name="jan_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.jan_income}}">
+  </div>
+   <div class="form-group">
+  <label for="exampleInputEmail1">February</label>
+    <input name="feb_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.feb_income}}">
+  </div>
+   <div class="form-group">
+  <label for="exampleInputEmail1">March</label>
+    <input name="march_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.march_income}}">
+  </div>
+   <div class="form-group">
+  <label for="exampleInputEmail1">April</label>
+    <input name="april_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.april_income}}">
+  </div>
+   <div class="form-group">
+  <label for="exampleInputEmail1">May</label>
+    <input name="may_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.may_income}}">
+  </div>
+    <div class="form-group">
+  <label for="exampleInputEmail1">June</label>
+    <input name="june_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.june_income}}">
+  </div>
+    <div class="form-group">
+  <label for="exampleInputEmail1">July</label>
+    <input name="july_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.july_income}}">
+  </div>
+    <div class="form-group">
+  <label for="exampleInputEmail1">August</label>
     <input name="income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.income}}">
   </div>
   <div class="form-group">
-  <label for="exampleInputEmail1">Additional Income</label>
-    <input name="additional_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.additional_income}}">
+  <label for="exampleInputEmail1">September</label>
+    <input name="sept_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.sept_income}}">
+  </div>
+    <div class="form-group">
+  <label for="exampleInputEmail1">October</label>
+    <input name="octo_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.octo_income}}">
+  </div>
+    <div class="form-group">
+  <label for="exampleInputEmail1">November</label>
+    <input name="nov_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.nov_income}}" >
+  </div>
+   <div class="form-group">
+  <label for="exampleInputEmail1">December</label>
+    <input name="dec_income" type="number" class="form-control"  aria-describedby="emailHelp"  value="{{user.dec_income}}">
   </div>
   <div class="form-group">
 <input type="hidden" name="_csrf" value="{{csrfToken}}">

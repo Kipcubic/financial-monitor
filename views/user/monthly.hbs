@@ -2,13 +2,13 @@
 {{> dashboardHeader}}
     <div class="container-fluid">
       <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/user/profile">
+                <a class="nav-link" href="/user/profile">
                   <span data-feather="home"></span>
-                  Dashboard 
+                  Dashboard <span class="sr-only">Current</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -18,9 +18,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/user/monthly">
+                <a class="nav-link active" href="/user/monthly">
                   <span ><i class="fa fa-shopping-basket"></i></span>
-                  Monthly Expenditures <span class="sr-only">Current</span>
+                  Monthly Expenditures
+                </a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link" href="/user/monthlyEarning">
+                  <span ><i class="fa fa-shopping-basket"></i></span>
+                  Monthly Earnings
+                </a>
+              </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/user/bycategory">
+                  <span ><i class="fa fa-shopping-basket"></i></span>
+                  Expenditures by Categpry
                 </a>
               </li>
             
@@ -36,7 +48,12 @@
             </h6>
             <ul class="nav flex-column mb-2">
             
-             
+             <li class="nav-item">
+                <a class="nav-link" href="/user/manualExp">
+                  <span ><i class="fa fa-plus"></i></span>
+                  Add Expenses
+                </a>
+              </li>
           
               <li class="nav-item">
                 <a class="nav-link" href="/user/update">
@@ -44,6 +61,7 @@
                   Profile
                 </a>
               </li>
+              
             </ul>
           </div>
         </nav>

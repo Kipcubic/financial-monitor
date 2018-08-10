@@ -1,35 +1,6 @@
 
 {{> header}}
     <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Categories
-                    </a>
-                </li>
-                <li>
-                    <a href="#">TVS, Audio and Cameras</a>
-                </li>
-                <li>
-                    <a href="/computing">Computing</a>
-                </li>
-                <li>
-                    <a href="#">Home and Living</a>
-                </li>
-                <li>
-                    <a href="#">Baby, Kids and Toys</a>
-                </li>
-                <li>
-                    <a href="#">Fashion</a>
-                </li>
-              
-            </ul>
-        </div>
-        <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><i class="fas fa-bars"></i> Shops</a>
-        <div id="page-content-wrapper">
  <div class="container">
 {{# each products}}
   <div class="row">
@@ -47,7 +18,7 @@
               <li>{{this.description}}</li>
              
             </ul>
-            <a href="/add-to-cart/{{this._id}}" class="btn btn-success addtocart" data-id="{{this.id}}">Purchase</a>
+            <a href="/add-to-cart/{{this._id}}" class="btn btn-success addtocart" data-id="{{this.id}}">Add to Cart</a>
           </div>
         </div>      
     </div>
