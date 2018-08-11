@@ -23,12 +23,6 @@
                   Monthly Expenditures
                 </a>
               </li>
-               <li class="nav-item">
-                <a class="nav-link" href="/user/getcategory">
-                  <span ><i class="fas fa-chart-line"></i></span>
-                  Category Charts
-                </a>
-              </li>
               <li class="nav-item">
                 <a class="nav-link" href="/user/monthlyEarning">
                   <span ><i class="far fa-money-bill-alt"></i></span>
@@ -74,69 +68,17 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Graphical User Transactions</h1>
+            <h1 class="h2">User Transactions by Category</h1>
          
           </div>
 
           <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-      
-<div class="jumbotron">
-  <h1 class="display-6">Hello, {{user.first_name}}</h1>
-  <p class="lead">Welcome to your world of managing finances</p>
-  <hr class="my-2">
-  <p>Today: {{moment date format="dddd, DD MMMM YYYY HH:mm:ss"}}</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Current Earning: Kshs. {{user.income}}</a>
-</div>
-  <div class="alert alert-primary" role="alert"><img src="/images/mia.jpg" height="30" width="60">
-  List of Recent Transactions
-</div>
-        
-{{# each orders}}
-
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              
-            <h3>{{moment this.date "MMMM Do YYYY, h:mm:ss a"}}</h3>
-            
           
-           
-      <div class="colalert alert-danger" role="alert">
-  Shopped  <a href="#" class="alert-link">{{moment this.date endOf="week" fromNow=true}} Ago</a>
-        </div>
-    
-          </div>
-         
-          Total Spent: Kshs.<b></h4>{{this.cart.totalPrice}}</h4>
-            
-              <thead>
-                <tr>
-                  <th>Item Price</th>
-                  <th>Item Name</th>
-                  <th>Item Description</th>
-                  <th>Category</th>
-                  <th>Quantity</th>
-                </tr>
-              </thead>
-              {{# each this.items}}
-              <tbody>
-                <tr>
-                  <td>{{this.price}}</td>
-                  <td>{{this.item.title}}</td>
-                  <td>{{this.item.description}}</td>
-                  <td>{{this.item.category}}</td>
-                  <td>{{this.qty}}</td>
-                </tr>
-              </tbody>
-               {{/each}}
-            </table>
-           
-          {{/each}}
-        
         </main>
       </div>
     </div>
   <script>
-    const url = '/user/getdata';
+    const url = '/user/getcat';
 fetch(url,{credentials: 'include'})
 .then(res => {if (!res.ok) {
       throw new Error(res.statusText); }   
@@ -148,46 +90,36 @@ fetch(url,{credentials: 'include'})
     let chartData=[];
  
     userDatas.forEach(userData => {
-           const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-        var mydate=new Date(userData.date);
-       var monthname=monthNames[mydate.getMonth()];
-       // var months=mydate.getMonth()+1;
-      label.push([monthname]);
+  
+    
+      label.push([userData._id.category]);
      
-      chartData.push([userData.cart.totalPrice]);
+      chartData.push([userData.totalAmount]);
     });
+
    var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'pie',
     data: {
         labels: label,
         datasets: [{
             label: ['Your expenses'],
             data:chartData,
             borderWidth: 1,
-             backgroundColor: [
-                
-                'rgb(34, 193, 103)'
-                
+            backgroundColor: [
+                'rgba(34,139,34)',
+                'rgba(220,20,60)',
+                'rgba(30,144,255)',
+                'rgb(255,99,71)'
 
             ],
            
         }]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:false
-                }
-            }],
-            xAxes: [{
-                type: 'category',
+       
                 labels: label,
-            }]
-        }
+        
     }
 });
 

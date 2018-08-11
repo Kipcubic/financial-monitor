@@ -1,38 +1,3 @@
-{{!-- {{# if products}}
-<div class="row">
- 
-    <ul class="list-group">
-        {{# each products}}
-        <li class="list-group-item">
-            <li>{{this.qty}}</li>
-            <li>{{this.item.title}}</li>
-            <li>Kshs.{{this.price}}</li>
-            <li><a href="/reduce/{{this.item._id}}">Reduce By 1</a></li>
-            <li><a href="/remove/{{this.item._id}}">Remove All</a></li>
-        </li>
-        {{/each}}
-    </ul>
-    
-</div>
-<div class="row">
-   <div class="col-sm-6">
-       <strong>Total:{{totalPrice}}</strong>
-   </div>
-</div>
-<hr>
-<div class="row">
-   <div class="col-sm-6">
-       <a href="/checkout" class="button btn-success">Checkout</a>
-   </div>
-</div>
-{{else}}
-<div class="row">
-   <div class="col-sm-6">
-       <strong>No items in the Cart</strong>
-   </div>
-</div>
-{{/if}}
- --}}
 
             
 {{> header}}
@@ -41,7 +6,7 @@
   <div class="col-3">
 	  <div class="check">	 
 			 <div class="cart-total">
-			 <a class="continue" href="/">Continue to basket</a>
+			 <a class="continue" href="/"><span><i class="fas fa-chevron-left"></i></span> Back to Online Shop</a>
 			 <div class="price-details">
 				 <h3>Price Details</h3>
 				 <span>Total</span>
@@ -60,7 +25,7 @@
 			
 			 
 			 <div class="clearfix"></div>
-			 <a class="order" href="/checkout">Place Order</a>
+			 <a class="order" href="/checkout">Proceed to Checkout <span><i class="fas fa-chevron-right"></i></span></a>
 			 
 			</div>
 
@@ -81,8 +46,8 @@
 							<li><p>Price :Kshs. {{this.price}}</p></li>
 							
 						</ul>
-						<li><a href="/reduce/{{this.item._id}}">Reduce By 1</a></li>
-            			<li><a href="/remove/{{this.item._id}}">Remove All</a></li>
+						<h2><a href="/reduce/{{this.item._id}}"><span><i class="fas fa-minus-circle"></i></span></a></h2><span>(Minus 1)</span>
+            			<h2><a href="/remove/{{this.item._id}}"><span><i class="far fa-trash-alt"></i></span></a></h2><span>(Delete Item from Scart)</span>
 						
 					   </div>
 					   <div class="clearfix"></div>
@@ -91,6 +56,12 @@
 			 </div>
 	{{/each}}
 {{else}}
-<h1>No products</h1>
+<div class="container" style="text-align:center">
+<h1><div class="alert alert-warning" role="alert">
+  No items in the Cart
+</div></h1>
+<img height="100px" src="/images/sad.png">
+</div>
+
 {{/if}}			
 </div>

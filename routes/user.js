@@ -15,7 +15,7 @@ handlebars.registerHelper('moment', require('helper-moment'));
 
 // profile landing
 router.get('/profile', isLoggedIn, function (req, res, next) {
-
+  var user=req.user;
   Order.find({ user: req.user }, function (err, orders) {
     if (err) {
       return res.write('Error');
@@ -26,8 +26,8 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
     });
-   
-    res.render('user/profile', { orders: orders});
+   console.log(user)
+    res.render('user/profile', { orders: orders,user:user});
   
   }).sort({'date': -1}).limit(5);
 });
@@ -183,9 +183,6 @@ router.post('/manualExp',function(req,res){
       res.redirect('/user/manualExp'); 
       
   });
-
-  
-
 });
 
 //get monthly earnings page
@@ -234,13 +231,40 @@ router.post('/monthlyEarning',function(req,res){
     res.redirect('/user/monthlyEarning');
 });
   });
-
+//render cat
+router.get('/getcategory',function(req,res){
+  res.render('user/cat');
+});
   //get data to Fetch API
 router.get('/getdata',function (req, res,next) {
   Order.find({user:req.user},function (err,docs) {
        res.send(docs);
     });
   });
+  // get data to category
+  router.get('/getcat',function (req, res,next) {
+    ManualEx.aggregate(
+      [ 
+        { 
+          $match : { user : req.user._id} 
+        },
+          {
+            $group:
+              {
+                _id: { category:"$category"},
+                totalAmount: { $sum: "$totalAmount"},
+                count: { $sum: 1 }
+              }
+          }
+      ],function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }     
+        res.send(result);
+    });
+    });
+    //logout
   router.get('/logout', isLoggedIn, function (req, res, next) {
   req.logout();
   res.redirect('/');
