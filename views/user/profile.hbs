@@ -77,16 +77,28 @@
             <h1 class="h2">Graphical User Transactions</h1>
          
           </div>
-
-          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-      
-<div class="jumbotron">
+{{!-- {{# if updated}} --}}
+      {{!-- <div class="jumbotron">
   <h1 class="display-6">Hello, {{user.first_name}}</h1>
   <p class="lead">Welcome to your world of managing finances</p>
   <hr class="my-2">
   <p>Today: {{moment date format="dddd, DD MMMM YYYY HH:mm:ss"}}</p>
   <a class="btn btn-primary btn-lg" href="#" role="button">Current Earning: Kshs. {{user.income}}</a>
+</div> --}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <h4 class="alert-heading">Welcome Back!</h4>
+  <h1 class="display-6">Hello, {{user.first_name}}</h1>
+  <p class="lead">Welcome to your world of managing finances</p>
+  Today: <strong>{{moment date format="dddd, DD MMMM YYYY HH:mm:ss"}}</strong>
+  <hr class="my-2">
+  <a class="btn btn-primary btn-lg" href="#" role="button">Current Earning: Kshs. {{user.income}}</a>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
+        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+
   <div class="alert alert-primary" role="alert"><img src="/images/mia.jpg" height="30" width="60">
   List of Recent Transactions
 </div>
@@ -131,6 +143,19 @@
             </table>
            
           {{/each}}
+{{!-- {{else}} --}}
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Thank you for registering...!</h4>
+  <p>Aww yeah, everyting is set up for you..one bit remaining, click the link below to update your profile settings</p>
+  <hr>
+
+  <p class="mb-0">Whenever you need to, be sure that all your transactions will be analysed</p>
+
+  <hr>
+  <a href="/user/update" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><span><i class="fas fa-user-cog"></i></span> User Information</a>
+</div>
+{{!-- {{/if}}  --}}
+
         
         </main>
       </div>
@@ -160,7 +185,7 @@ fetch(url,{credentials: 'include'})
     });
    var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
         labels: label,
         datasets: [{
@@ -169,7 +194,67 @@ var myChart = new Chart(ctx, {
             borderWidth: 1,
              backgroundColor: [
                 
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                 'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
+                'rgb(34, 193, 103)',
                 'rgb(34, 193, 103)'
+
+
+
+
                 
 
             ],

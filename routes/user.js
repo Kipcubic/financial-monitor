@@ -20,14 +20,14 @@ router.get('/profile', isLoggedIn, function (req, res, next) {
     if (err) {
       return res.write('Error');
     }
-    
+   
     var cart;
     orders.forEach(function (order) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
     });
-   console.log(user)
-    res.render('user/profile', { orders: orders,user:user});
+    User.find( { first_name: { $exists: true} },function(err,named){});
+    res.render('user/profile',{user:user,orders:orders})
   
   }).sort({'date': -1}).limit(5);
 });
@@ -108,26 +108,36 @@ router.get('/monthly',isLoggedIn,function(req,res,next){
       });
       var userSalary=req.user.income+req.user.additional_income;
       var gt=[];
-      if(result[0].totalAmount>userSalary)
-      {
-        gt.push(result[0])
+      var i = result.length;
+    while( i-- ) {
+      if(result[i].totalAmount>userSalary){
+        gt.push(result[i].totalAmount)
       }
-      if(result[1].totalAmount>userSalary)
-      {
-        gt.push(result[1])
-      }
-      if(result[2].totalAmount>userSalary)
-      {
-        gt.push(result[2])
-      }
-      if(result[3].totalAmount>userSalary)
-      {
-        gt.push(result[3])
-      }
-     
-    
+    } 
+    ManualEx.aggregate(
+      [ 
+          { 
+            $match : { user : req.user._id} 
+          },
+        {
+          $group:
+            {
+              _id: { month: { $month: "$date"}, year: { $year: "$date" } },
+              totalAmount: { $sum: "$totalAmount" },
+              count: { $sum: 1 }
+            }
+        }
+      ],function (err, resultManual) {
+        if (err) {
+            console.log(err);
+            return;
+        }  
+        console.log(resultManual);
+        res.render('user/monthly',{ result:result,userSalary,gt:gt,resultManual:resultManual});
+      
+    });
   
-      res.render('user/monthly',{ result:result,userSalary,gt:gt});
+      // res.render('user/monthly',{ result:result,userSalary,gt:gt});
     
   });
     
@@ -152,15 +162,13 @@ router.get('/bycategory',isLoggedIn,function(req,res){
           console.log(err);
           return;
       }
-      console.log(result);
       var userSalary=req.user.income+req.user.additional_income;
     
       
 
         
       res.render('user/bycategory',{ result:result,userSalary});
-  }).sort({'totalAmount': 1});
-    
+  }).sort({'totalAmount': 1});  
 });
 //get manual expenses page
 router.get('/manualExp',function(req,res){
@@ -184,7 +192,6 @@ router.post('/manualExp',function(req,res){
       
   });
 });
-
 //get monthly earnings page
 router.get('/monthlyEarning',function(req,res){
   res.render('user/monthlyEarning',{csrfToken: req.csrfToken(),user:req.user});
