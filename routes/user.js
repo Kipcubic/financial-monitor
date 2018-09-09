@@ -51,7 +51,7 @@ router.get('/recent',isLoggedIn,function(req,res){
 // get update form
 router.get('/update',isLoggedIn,function(req,res){
 
-  res.render('user/profile-update',{csrfToken: req.csrfToken(),user:req.user});
+  res.render('user/profile-update',{csrfToken: req.csrfToken(),user:req.user,messages: req.flash('success')});
   });
 //post update  user information 
 router.post('/update',isLoggedIn,function(req,res){

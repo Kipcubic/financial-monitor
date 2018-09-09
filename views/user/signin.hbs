@@ -2,7 +2,7 @@
   <form class="form-signin" method="post" action="/user/signin">
       <div class="text-center mb-4">
         
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Login Form</h1>
         {{#if hasErrors}}
             {{# each messages}}
                   <p>{{this}}</p>
@@ -21,6 +21,7 @@
       </div>
       <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <a href="/user/signup">Sign Up</a>
+      <hr>
+      If you're Not Registered, Click <strong><a href="/user/signup">Here</a></strong>
       <p class="mt-5 mb-3 text-muted text-center">&copy; CIT-227-020/2017</p>
     </form>

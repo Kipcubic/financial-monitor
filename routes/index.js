@@ -99,7 +99,7 @@ router.get('/checkout',isLoggedIn,function(req,res,next){
 	var userIncome=req.user.income+req.user.additional_income;
 	var totalExpenditure=cart.totalPrice;
 	console.log(userIncome);
-	res.render('shop/checkout',{total:cart.totalPrice, unable:userIncome<totalExpenditure});
+	res.render('shop/checkout',{total:cart.totalPrice, unable:userIncome<totalExpenditure,user:req.user});
 
 	
 });

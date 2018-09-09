@@ -9,12 +9,12 @@
       {{# if login}}
       <div class="dropdown">
       <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-user"> </i> {{user.email}}
+        <i class="fas fa-user"> </i> {{user.first_name}}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" href="/user/profile">Financial Monitor</a>
-        <a class="dropdown-item" href="/user/settings">User Settings</a>
-        <a class="dropdown-item" href="/user/settings">Earnings</a>
+        <a class="dropdown-item" href="/user/update">User Settings</a>
+        <a class="dropdown-item" href="/user/monthlyEarning">Earnings</a>
         <a class="dropdown-item" href="/user/logout">Logout</a>
       </div>
 </div>

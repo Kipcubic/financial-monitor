@@ -6,7 +6,7 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/user/profile">
+                <a class="nav-link" href="/user/profile">
                   <span data-feather="home"></span>
                   Dashboard <span class="sr-only">Current</span>
                 </a>
@@ -36,13 +36,11 @@
                 </a>
               </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/user/bycategory">
+                <a class="nav-link active" href="/user/bycategory">
                   <span ><i class="fa fa-shopping-basket"></i></span>
                   Expenditures by Categpry
                 </a>
               </li>
-            
-             
              
             </ul>
 
@@ -77,7 +75,7 @@
             <h1 class="h2">Expenses by Category</h1>
           
           </div>
-          <canvas class="my-4 w-100" id="myChart" width="800" height="280"></canvas>
+          
 {{#result}}
 
 
@@ -103,56 +101,7 @@
       </div>
     </div>
 
-  <script>
-    const url = '/user/getcat';
-fetch(url,{credentials: 'include'})
-.then(res => {if (!res.ok) {
-      throw new Error(res.statusText); }   
-    return res.json();
-  })
-  .then(data => {  
-    let userDatas = data;
-    let label = [];
-    let chartData=[];
- 
-    userDatas.forEach(userData => {
-  
-    
-      label.push([userData._id.category]);
-     
-      chartData.push([userData.totalAmount]);
-    });
 
-   var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: label,
-        datasets: [{
-            label: ['Your expenses'],
-            data:chartData,
-            borderWidth: 1,
-            backgroundColor: [
-                'rgba(34,139,34)',
-                'rgba(220,20,60)',
-                'rgba(30,144,255)',
-                'rgb(255,99,71)'
-
-            ],
-           
-        }]
-    },
-    options: {
-       
-                labels: label,
-        
-    }
-});
-
-  // catches errors in promise chain
-  }).catch(error => console.log("Error fetching data"+error));
-  
-</script>
 
 
  

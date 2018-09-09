@@ -1,19 +1,28 @@
 {{> header}}
+<div class="container">
 <div class="row">
     
     <form method="post" action="/checkout">
-    <h1>Total:{{total}}</h1>
+    <h1>Total Amount: Kshs. {{total}}</h1>
     {{# if unable}}
-Cannot process this transactions
+<div class="alert alert-danger" role="alert">
+  The total Amount is way above your income, consider removing some items..
+</div> 
+<a href="/shopping-cart"><span><i class="fas fa-hand-point-left"></i></span> back to shopping Cart</a><br />
+<hr>
+<button type="button" class="btn btn-danger">Checkout anyway</button>
 
     {{else}}
      
+    <div class="alert alert-success" role="alert">
+  The Total Amount is less than what you earn now...you can complete
+</div>
+    <button type="submit" class="btn btn-primary"><span><i class="fas fa-check"></i></span>Complete Transactions</button>
 
-    <button type="submit" class="btn btn-primary">Complete Transactions</button>
-Go ahead and complete transactions
     {{/if}}
 
    
     </form>
 
+</div>
 </div>

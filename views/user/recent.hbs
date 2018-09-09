@@ -6,13 +6,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/user/profile">
+                <a class="nav-link" href="/user/profile">
                   <span data-feather="home"></span>
                   Dashboard <span class="sr-only">Current</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/user/recent">
+                <a class="nav-link active" href="/user/recent">
                   <span ><i class="fa fa-binoculars"></i></span>
                   List of All Transactions
                 </a>
@@ -78,7 +78,7 @@
         
           </div>
 
-     
+{{# if orders}}  
           
 {{# each orders}}
 
@@ -115,8 +115,14 @@
         </main>
       </div>
     </div>
-
-
+{{else}}
+<div class="container" style="text-align:center">
+<h1><div class="alert alert-warning" role="alert">
+  No Transactions Yet
+</div></h1>
+<img height="100px" src="/images/sad.png">
+</div>
+{{/if}}
 
  
 
