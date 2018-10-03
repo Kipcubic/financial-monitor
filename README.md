@@ -1,2 +1,2 @@
 # financial-monitor
-![Alt text](public/screenshots/S1.png?raw=true "Main Page")
+![Alt text](screenshots/S1.png?raw=true "Main Page")
