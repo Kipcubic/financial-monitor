@@ -1,6 +1,6 @@
 # financial-monitor
 #Main Page
-![Alt text](Screenshots/mainPage.jpg?raw=true "Main Page")
+![Alt text](Screenshots/main.png?raw=true "Main Page")
 #Login Page
 ![Alt text](Screenshots/LoginPage.jpg?raw=true "Login Page")
 #Monitor Page
