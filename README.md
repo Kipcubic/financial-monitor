@@ -6,6 +6,8 @@
 #Monitor Page
 ![Alt text](Screenshots/monitor.png?raw=true "Monitor")
 
+#A link of online existence is soon launching...
+
 
 
 
